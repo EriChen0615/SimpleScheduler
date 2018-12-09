@@ -19,8 +19,11 @@ class Row
 		~Row(void);
 		void Insert(int pos,int width,string x_tick);
 		void Delete(int pos);
+		void Replace(int pos,int width,string x_tick);
+		void Modify(int pos,string x_ticks);
 		void Show(void);
 		void SetNextRow(Row* nextRow);
+		void SetHeight(int height);
 		Row* GetNextRow(void);
 };
 

@@ -107,11 +107,41 @@ void Row::Delete(int pos)
 	}
 }
 
+void Row::Replace(int pos,int width,string x_tick)
+{
+	Info_unit* current = head_unit;
+	for(int i=0;i<pos;i++)
+	{
+		current = current->GetRightUnit();
+	}
+	current->SetWidth(width);
+	current->SetContent(x_tick);
+}
+
+void Row::Modify(int pos,string x_ticks)
+{
+	Info_unit* current = head_unit;
+	for(int i=0;i<pos;i++)
+	{
+		current = current->GetRightUnit();
+	}
+	current->SetContent(x_ticks);
+}
 void Row::SetNextRow(Row* nextRow)
 {
 	this->nextRow = nextRow;
 }
 
+void Row::SetHeight(int height)
+{
+	this->height = height;
+	Info_unit *current = this->head_unit;
+	while(current!=NULL)
+	{
+		current->SetHeight(height);
+		current = current->GetRightUnit();
+	}
+}
 Row* Row::GetNextRow(void)
 {
 	return this->nextRow;

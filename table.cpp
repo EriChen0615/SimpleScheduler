@@ -13,7 +13,7 @@ Table::Table(int rows,int columns,string *x_ticks,string *y_ticks)
  	Row* current_row = head_row;
 	 for(int i=0;i<rows;i++)
  	{
- 		current_row->SetNextRow(new Row(5,10,columns,new Info_unit(5,10,y_ticks[i])));
+ 		current_row->SetNextRow(new Row(DEFAULT_WIDTH,DEFAULT_HEIGHT,columns,new Info_unit(5,10,y_ticks[i])));
  		current_row = current_row->GetNextRow();
 	}
 }
@@ -41,4 +41,13 @@ void Table::Show()
 	} 
 }
 
+void Table::SetRowHeight(int i,int height)
+{
+	Row *current = head_row;
+	for(int j=0;j<i;j++)
+	{
+		current = current->GetNextRow();
+	 } 
+	current->SetHeight(height);
+}
 

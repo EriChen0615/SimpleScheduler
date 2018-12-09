@@ -18,7 +18,6 @@ Info_unit::Info_unit(int r,int c,string cont,VerticalAlign va,HorizontalAlign ha
 	h_align = ha;
 	size = content.length();
 	
-	int total_space = rows*columns; 
 	(size%text_per_row==0) ? (text_rows=size/text_per_row) : (text_rows=size/text_per_row +1); // integer division
 	switch(v_align)
 	{
@@ -75,6 +74,24 @@ void Info_unit::SetVisibility(bool v)
 void Info_unit::SetContent(string c)
 {
 	content = c;
+	index = 0;
+	size = content.length();
+	(size%text_per_row==0) ? (text_rows=size/text_per_row) : (text_rows=size/text_per_row +1); // integer division
+	switch(v_align)
+	{
+		case UP:
+		{
+			start_row = 0;
+		 }break;
+		case MIDDLE:
+		{
+			start_row = (rows-text_rows)/2;
+		 }break;
+		case DOWN:
+		{
+			start_row = rows-text_rows;
+		 }break; 
+	}
 }
 
 void Info_unit::SetPlaceholder(char ch)
