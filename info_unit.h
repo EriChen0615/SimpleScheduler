@@ -55,6 +55,8 @@ class Info_unit
 		void SetVisibility(bool v);
 		void SetContent(string content);
 		void SetPlaceholder(char ch);
+		void SetWidth(int width);
+		void SetHeight(int height);
 		string GetContent(void);
 		int GetWidth(void);
 		int GetHeight(void);

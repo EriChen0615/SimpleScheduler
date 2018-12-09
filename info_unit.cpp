@@ -19,9 +19,7 @@ Info_unit::Info_unit(int r,int c,string cont,VerticalAlign va,HorizontalAlign ha
 	size = content.length();
 	
 	int total_space = rows*columns; 
-	//cout << total_space << " " << size << endl;
 	(size%text_per_row==0) ? (text_rows=size/text_per_row) : (text_rows=size/text_per_row +1); // integer division
-	//cout << "text_rows = " << text_rows << endl;
 	switch(v_align)
 	{
 		case UP:
@@ -83,6 +81,29 @@ void Info_unit::SetPlaceholder(char ch)
 {
 	place_holder = ch;	
 }
+void Info_unit::SetHeight(int height)
+{
+	this->rows = height;
+	switch(v_align)
+	{
+		case UP:
+		{
+			start_row = 0;
+		 }break;
+		case MIDDLE:
+		{
+			start_row = (rows-text_rows)/2;
+		 }break;
+		case DOWN:
+		{
+			start_row = rows-text_rows;
+		 }break; 
+	}
+}
+void Info_unit::SetWidth(int width)
+{
+	this->columns = width;
+}
 string Info_unit::GetContent(void)
 {
 	return content;
@@ -107,7 +128,11 @@ void Info_unit::_ShowLine(int r)
 {
 	
 	if(index==size && r==0) index = 0; // reset index
-	if(!visible) return; // omit without placeholding
+	if(!visible)  // omit without placeholding
+	{
+		if(rightUnit!=NULL)	(*rightUnit)._ShowLine(r);
+		return;		
+	}
 	
 	if(r>=start_row&&r<start_row+text_rows)
 	{
