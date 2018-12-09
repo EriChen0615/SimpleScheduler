@@ -6,17 +6,36 @@ Row::Row(int height,int columns,const int *width,const string *x_ticks,const str
 	this->columns = columns;
 	this->head_unit = new Info_unit(height,width[0],x_ticks[0]); 
 	this->separator = separator;
+	this->nextRow = NULL; 
 	Info_unit *current_unit = head_unit;
 	for(int i=1;i<columns;i++)
 	{
 		current_unit->SetRightUnit(new Info_unit(height,width[i],x_ticks[i]));
 		current_unit = current_unit->GetRightUnit();
-//		units[i] = Info_unit(height,width[i],x_ticks[i]);
-//		units[i].Show(); 
-//		if(i!=columns-1)
-//		{
-//			units[i].SetRightUnit(units+i+1);
-//		}
+	}
+}
+
+Row::Row(Info_unit* units,const string sep)
+{
+	this->head_unit = units;
+	this->height = head_unit->GetHeight();
+	this->separator = sep;
+	this->nextRow = NULL;
+}
+  
+Row::Row(int height,int width, int columns, Info_unit* unit)
+{
+	this->height = height;
+	this->columns = columns;
+	this->head_unit = unit;
+	this->separator = separator;
+	this->nextRow = NULL; 
+	Info_unit *current_unit = head_unit;
+	string tmp = "";
+	for(int i=1;i<columns;i++)
+	{
+		current_unit->SetRightUnit(new Info_unit(height,width,tmp));
+		current_unit = current_unit->GetRightUnit();
 	}
 }
 
@@ -86,4 +105,14 @@ void Row::Delete(int pos)
 		before->SetRightUnit(current->GetRightUnit());
 		delete current;
 	}
+}
+
+void Row::SetNextRow(Row* nextRow)
+{
+	this->nextRow = nextRow;
+}
+
+Row* Row::GetNextRow(void)
+{
+	return this->nextRow;
 }
