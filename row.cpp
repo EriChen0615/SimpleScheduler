@@ -31,7 +31,7 @@ Row::Row(int height,int width, int columns, Info_unit* unit)
 	this->separator = separator;
 	this->nextRow = NULL; 
 	Info_unit *current_unit = head_unit;
-	string tmp = "";
+	string tmp  = "";
 	for(int i=1;i<columns;i++)
 	{
 		current_unit->SetRightUnit(new Info_unit(height,width,tmp));
@@ -43,6 +43,14 @@ Row::~Row(void)
 {
 	
 }  
+
+Info_unit* Row::_GetUnit(int i)
+{
+	Info_unit* current = head_unit;
+	for(int j=0;j<i;j++)
+		current = current->GetRightUnit();
+	return current;
+}
 
 void Row::Show(void)
 {
@@ -84,6 +92,29 @@ void Row::Insert(int pos,int width,string x_tick)
 	}
 }
 
+void Row::Insert(int pos,Info_unit* unit)
+{
+	if(pos==0)
+	{
+		unit->SetRightUnit(head_unit);
+		unit->SetDownUnit(head_unit->GetDownUnit());
+		head_unit->SetDownUnit((Info_unit*)NULL);
+		head_unit = unit;
+	}
+	else
+	{
+		Info_unit* current = head_unit->GetRightUnit(); 
+		Info_unit* before = head_unit;
+		for(int i=1;i<pos;i++)
+		{
+			before = before->GetRightUnit();
+			current = current->GetRightUnit();
+		}
+		before->SetRightUnit(unit);
+		unit->SetRightUnit(current);
+	}
+ } 
+ 
 void Row::Delete(int pos)
 {
 	if(pos==0)
@@ -116,6 +147,13 @@ void Row::Replace(int pos,int width,string x_tick)
 	}
 	current->SetWidth(width);
 	current->SetContent(x_tick);
+}
+
+void Row::Replace(int pos,Info_unit* unit)
+{
+	Info_unit* unit_i = _GetUnit(pos);
+	unit_i->SetWidth(unit->GetWidth());
+	unit_i->SetContent(unit->GetContent());	
 }
 
 void Row::Modify(int pos,string x_ticks)

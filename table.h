@@ -20,17 +20,18 @@ class Table
 		int columns;
 		string *x_ticks;
 		string *y_ticks;
+		Row* _GetRow(int i);
 	public:
 		Table(int rows,int columns,string* x_ticks,string* y_ticks);
 		~Table(void);
 		void Show(void);
 		void SetRowHeight(int i,int height);
-//		void Insert(int i,int j,Info_unit* unit);
-//		void Delete(int i,int j);
-//		void Replace(int i,int j,Info_unit* unit);
-//		void InsertRow(int i,Row* row);
-//		void DeleteRow(int i);
-//		void ReplaceRow(int i,Row* row); 
+		void Insert(int i,int j,Info_unit* unit);
+		void Delete(int i,int j);
+		void Replace(int i,int j,Info_unit* unit);
+		void InsertRow(int i,Row* row);
+		void DeleteRow(int i);
+		void ReplaceRow(int i,Row* row); 
 
 };
 
