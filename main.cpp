@@ -90,13 +90,20 @@ int main(int argc, char** argv) {
 //	l1.Show();
 //	l1.Replace(0,&node4);
 //	l1.Show();
-
+//	cout << l1.Find(&node4) << endl; 
+//	cout << l1.Find(new Node<string>(s3,NULL)) << endl;
+	
 	time_t now = time(0);
 	char* dt = ctime(&now);
 	cout << "The local date and time is: " << dt;
 	tm* ltm = localtime(&now);
 	cout << 1900+ltm->tm_year << endl;
 	cout << 1+ltm->tm_mon << endl;
+	
+	tm tm1 = {0,0,12,11,11,118};
+	time_t t1 = mktime(&tm1);
+	char* dt1 = ctime(&t1);
+	cout << dt1;
 	
 	return 0;
 }

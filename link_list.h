@@ -149,6 +149,15 @@ class Link_list
 			tail = node;
 			length++;
 		}
+		int Find(Node<T>* node)
+		{
+			Node<T>* current = head;
+			for(int i=0;i<length;i++)
+			{
+				if(current->GetValue() == head->GetValue()) return i;
+			}
+			return -1;
+		}
 		void Show(void)
 		{
 			Node<T>* current = head;
